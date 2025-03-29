@@ -1,39 +1,38 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import Login from "./components/login";
-import Registration from "./components/registration";
-import Dashboard from "./components/dashboard";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Login from "./components/DefaultPage/Login";
+import Register from "./components/DefaultPage/Register";
+import Dashboard from "./components/DefaultPage/Dashboard";
+import Cart from "./components/CustomerPage/Cart"; // Make sure Cart.js exists and is correctly imported
 
-const App = () => {
-    // State to store authentication token from local storage
-    const [token, setToken] = useState(localStorage.getItem("token"));
+const isAuthenticated = () => !!localStorage.getItem("token");
 
-    // Function to handle login and store token in local storage
-    const handleLogin = (newToken) => {
-        localStorage.setItem("token", newToken);
-        setToken(newToken);
-    };
-
-    // Function to handle logout and remove token from local storage
-    const handleLogout = () => {
-        localStorage.removeItem("token");
-        setToken(null);
-    };
-
+function App() {
     return (
         <Router>
             <Routes>
-                {/* Redirect to dashboard if token exists, otherwise show login page */}
-                <Route path="/" element={token ? <Navigate to="/dashboard" /> : <Login onLogin={handleLogin} />} />
-                
-                {/* Registration page route */}
-                <Route path="/register" element={<Registration />} />
-                
-                {/* Redirect to login if not authenticated, otherwise show dashboard */}
-                <Route path="/dashboard" element={token ? <Dashboard onLogout={handleLogout} /> : <Navigate to="/" />} />
+                {/* Public Routes */}
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+
+                {/* Protected Route for Cart */}
+                <Route
+                    path="/cart"
+                    element={isAuthenticated() ? <Cart /> : <Navigate to="/login" />}
+                />
+
+                {/* Protected Route for Dashboard */}
+                <Route
+                    path="/dashboard"
+                    element={isAuthenticated() ? <Dashboard /> : <Navigate to="/login" />}
+                />
+
+                {/* Redirect unknown routes to login */}
+                <Route path="*" element={<Navigate to="/login" />} />
             </Routes>
         </Router>
     );
-};
+}
 
 export default App;
