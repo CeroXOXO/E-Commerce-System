@@ -1,0 +1,46 @@
+.text-gold {
+    color: gold;
+}
+
+.btn-gold {
+    background-color: gold;
+    color: black;
+    border: none;
+}
+
+.btn-outline-gold {
+    border: 2px solid gold;
+    color: gold;
+    background-color: transparent;
+}
+
+.btn-outline-gold:hover {
+    background-color: gold;
+    color: black;
+}
+
+.border-gold {
+    border: 2px solid gold;
+}
+
+.bg-gold {
+    background-color: gold !important;
+    color: black;
+}
+.btn-custom {
+    background-color: #ffcc00; /* Change this to your preferred color */
+    color: black;
+    border: none;
+}
+
+.btn-outline-custom {
+    border: 2px solid #ffcc00; /* Change this to your preferred color */
+    color: #ffcc00;
+    background-color: transparent;
+}
+
+.btn-outline-custom:hover {
+    background-color: #ffcc00;
+    color: black;
+}
+

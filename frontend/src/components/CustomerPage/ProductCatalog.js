@@ -41,7 +41,7 @@ const ProductCatalog = ({ products }) => {
                     quantity: quantity,
                 },
                 {
-                    headers: { Authorization: `Bearer ${token}` }, // ✅ Move headers here
+                    headers: { Authorization: `Bearer ${token}` },
                 }
             );
     
@@ -55,19 +55,19 @@ const ProductCatalog = ({ products }) => {
     };
 
     return (
-        <div className="row">
+        <div className="row row-cols-1 row-cols-md-3 g-4">
             {products.length === 0 ? (
-                <p>No products found.</p>
+                <p className="text-center">No products found.</p>
             ) : (
                 products.map((product) => (
-                    <div key={product.id} className="col-md-4 mb-4">
-                        <div className="card">
+                    <div key={product.id} className="col d-flex align-items-stretch">
+                        <div className="card h-100">
                             <img src={product.image} className="card-img-top" alt={product.name} />
-                            <div className="card-body">
+                            <div className="card-body d-flex flex-column">
                                 <h5 className="card-title">{product.name}</h5>
-                                <p className="card-text">{product.description}</p>
+                                <p className="card-text flex-grow-1">{product.description}</p>
                                 <p className="card-text"><strong>₱{product.price}</strong></p>
-                                <button className="btn btn-primary" onClick={() => handleShowModal(product)}>
+                                <button className="btn btn-primary mt-auto" onClick={() => handleShowModal(product)}>
                                     Add to Cart
                                 </button>
                             </div>
@@ -76,7 +76,6 @@ const ProductCatalog = ({ products }) => {
                 ))
             )}
 
-            {/* Modal for adding to cart */}
             {selectedProduct && (
                 <Modal show={showModal} onHide={handleCloseModal}>
                     <Modal.Header closeButton>
